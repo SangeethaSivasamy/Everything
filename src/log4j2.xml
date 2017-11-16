@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Configuration status="ERROR">
+	<Appenders>
+		<Console name="consoleAppender" target="SYSTEM_OUT">
+			<PatternLayout pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} %c{1} %M()- %msg%n" />
+		</Console>
+		
+		<File name="fileAppender" fileName="/Users/sangeetha/Documents/Everything/logs/fileapp-log.log">
+			<PatternLayout pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} %c{1} %M()- %msg%n" />
+		</File>
+		
+		<RollingFile name="rollingFileAppender" fileName="/Users/sangeetha/Documents/Everything/logs/rollingfileapp-log.log" filePattern="/Users/sangeetha/Documents/Everything/logs/time-based-logs/rollingfileapp-%d{yyyy-MM-dd-hh-mm}-%i.log">
+  			<PatternLayout>
+  			<pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} %c{1} %M()- %msg%n</pattern>
+  			</PatternLayout>
+  			<Policies>
+   				<TimeBasedTriggeringPolicy interval="2" modulate="true" />
+  			</Policies>
+  			<DefaultRolloverStrategy max="5" />
+		</RollingFile>
+		
+		<File name="fileAppender2" fileName="/Users/sangeetha/Documents/Everything/logs/packagelogs/fileapp-log.log">
+			<PatternLayout pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} %c{1} %M()- %msg%n" />
+		</File>
+		
+	</Appenders>
+
+	<Loggers>
+		<Logger name="com.sang.controller" level="ALL">
+			<AppenderRef ref="fileAppender2"/>
+		</Logger>
+		<AsyncLogger name="com.sang.dao" level="INFO" additivity="false">
+			<AppenderRef ref="fileAppender"/>
+		</AsyncLogger>
+		<Root level="ALL">
+			<AppenderRef ref="consoleAppender"/>
+			<AppenderRef ref="rollingFileAppender"/>
+		</Root>
+	</Loggers>
+</Configuration>
+
